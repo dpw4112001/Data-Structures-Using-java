@@ -1,33 +1,96 @@
-import java.util.*;
-
-class Main
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct node{
+	int data;
+	struct node *next;
+	
+}NODE;
+typedef struct queue{
+	NODE *fr,*rr;
+}Q;
+void init(Q* t)
 {
-	// Queue implementation in java
-	public static void main(String[] args)
+	t->fr=t->rr=NULL;
+}
+NODE *createNode(int d)
+{
+	NODE *a=(NODE *)malloc(sizeof(NODE));
+	a->data=d;
+	a->next=NULL;
+	return a;
+}
+void insert(Q *t,int d)
+{
+	NODE *a=createNode(d);
+	NODE *b=t->fr;
+	if(b==NULL)
 	{
-		Queue<String> queue = new LinkedList<String>();
-
-		queue.add("A");	// Insert "A" in the queue
-		queue.add("B");	// Insert "B" in the queue
-		queue.add("C");	// Insert "C" in the queue
-		queue.add("D");	// Insert "D" in the queue
-
-		// Prints the front of the queue ("A")
-		System.out.println("Front element is: " + queue.peek());
-
-		queue.remove();	// removing the front element ("A")
-		queue.remove();	// removing the front element ("B")
-
-		// Prints the front of the queue ("C")
-		System.out.println("Front element is: " + queue.peek());
-
-		// Returns the number of elements present in the queue
-		System.out.println("Queue size is " + queue.size());
-
-		// check if queue is empty
-		if (queue.isEmpty())
-			System.out.println("Queue is Empty");
-		else
-			System.out.println("Queue is not Empty");
+		t->fr=t->rr=a;
+		return ;
 	}
+	b=t->rr;
+	b->next=a;
+	t->rr=a;
+}
+void del(Q *t)
+{
+	NODE *a=t->fr;
+	if(a==NULL)
+	{
+		printf("Underflow\n");
+		return;
+	}
+	if(t->fr==t->rr)
+	{
+		t->fr=t->rr=NULL;
+	}
+	else
+	{
+		t->fr=a->next;
+	}
+	free(a);
+}
+void display(Q *t)
+{
+	NODE *a=t->fr;
+	if(a==NULL)
+	{
+		printf("Empty Queue\n");
+		return;
+	}
+	printf("\nQueue : ");
+	while(a!=NULL)
+	{
+		printf("%4d\n",a->data);
+		a=a->next;
+	}
+}
+
+int main()
+{
+	Q q;
+	init(&q);
+	
+	int opt,d;
+	while(1)
+	{
+		printf("1.insert\n2.delete\n3.display\n4.exit\n");
+		scanf("%d",&opt);
+		if(opt>3)
+			return 0;
+		switch(opt)
+		{
+			case 1:
+			printf("\nData : ");
+			scanf("%d",&d);
+			insert(&q,d);
+			break;
+			case 2:
+			del(&q);
+			break;
+			case 3:
+			display(&q);
+		}
+	}
+	return 0;
 }
