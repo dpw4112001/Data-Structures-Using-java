@@ -60,40 +60,7 @@ void update(int index,int start,int end,int q)
 	st[index] = st[2*index] + st[2*index+1];
 }
 
-void lazy_update(int index,int start,int end,int us,int ue,int val)
-{
-	if(lazy[index]!=0)
-	{
-		int dx = lazy[index];
-		st[index] += dx*(end-start+1);
-		lazy[index] = 0;
-		if(start!=end)
-		{
-			lazy[2*index]+=dx;
-			lazy[2*index+1]+=dx;
-		}
-	}
 
-	if(start>ue || end<us)
-		return;
-
-	if(us>=start && ue<=end)
-	{
-		st[index]+=val*(end-start+1);
-
-		if(start!=end){
-			lazy[2*index]+=val;
-			lazy[2*index+1]+=val;
-		}
-		return;
-	}
-	int mid = (start+end)/2;
-
-	lazy_update(2*index,start,mid,us,ue,val);
-	lazy_update(2*index+1,start,end,us,ue,val);
-
-	st[index] = st[2*index] + st[2*index+1];
-}
 
 
 signed main()
