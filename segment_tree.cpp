@@ -62,6 +62,7 @@ void update(int index,int start,int end,int q)
 
 
 
+
 signed main()
 {	
 	#ifndef ONLINE_JUDGE
